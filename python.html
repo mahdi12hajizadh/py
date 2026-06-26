@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="سایت آموزش رایگان پایتون - PythonSchool">
+  <meta name="keywords" content="پایتون, آموزش پایتون, برنامه‌نویسی, Python, آموزش برنامه‌نویسی">
+  <title>PythonSchool - آموزش پایتون</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* ===== ریست و پایه ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #4caf50;
+      --primary-dark: #388e3c;
+      --primary-light: #81c784;
+      --dark: #1e2a3a;
+      --darker: #141e2a;
+      --light-bg: #f7f9fc;
+      --white: #ffffff;
+      --text: #1e1e2a;
+      --text-light: #5e6f8b;
+      --shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.15);
+      --radius: 16px;
+      --transition: 0.3s ease;
+      --font-code: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--light-bg);
+      color: var(--text);
+      direction: rtl;
+      line-height: 1.7;
+    }
+
+    /* ===== اسکرول ===== */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #e8ecf1;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--primary-dark);
+    }
+
+    /* ===== هدر ===== */
+    .header {
+      background: var(--dark);
+      color: white;
+      padding: 0.8rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo i {
+      color: var(--primary);
+      margin-left: 10px;
+      font-size: 2rem;
+    }
+
+    .logo span {
+      color: #ffd966;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: #ddd;
+      text-decoration: none;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: var(--transition);
+      padding: 0.4rem 1rem;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-links a:hover {
+      color: white;
+      background: rgba(76, 175, 80, 0.15);
+    }
+
+    .nav-links a i {
+      font-size: 0.95rem;
+    }
+
+    .nav-links a.active {
+      color: var(--primary);
+      background: rgba(76, 175, 80, 0.2);
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0.4rem 0.8rem;
+      border-radius: 8px;
+      transition: var(--transition);
+    }
+
+    .menu-toggle:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* ===== لایه‌بندی اصلی ===== */
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 1400px;
+      margin: 1.5rem auto;
+      padding: 0 1.5rem;
+      gap: 1.8rem;
+    }
+
+    /* ===== سایدبار ===== */
+    .sidebar {
+      flex: 1 1 260px;
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 1.5rem 0.8rem;
+      box-shadow: var(--shadow);
+      height: fit-content;
+      position: sticky;
+      top: 90px;
+      max-height: calc(100vh - 120px);
+      overflow-y: auto;
+      transition: var(--transition);
+    }
+
+    .sidebar:hover {
+      box-shadow: var(--shadow-hover);
+    }
+
+    .sidebar::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .sidebar::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 10px;
+    }
+
+    .sidebar h3 {
+      font-size: 1.15rem;
+      padding: 0 1rem 0.8rem 1rem;
+      border-bottom: 2px solid #eef2f7;
+      color: #2c3e50;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .sidebar h3 i {
+      color: var(--primary);
+    }
+
+    .sidebar ul {
+      list-style: none;
+      margin-top: 0.5rem;
+    }
+
+    .sidebar li {
+      padding: 0.7rem 1rem;
+      border-radius: 10px;
+      margin: 3px 0;
+      transition: var(--transition);
+      cursor: pointer;
+      font-weight: 500;
+      color: #1e2b3c;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.95rem;
+    }
+
+    .sidebar li i {
+      width: 20px;
+      color: var(--primary);
+      font-size: 0.9rem;
+    }
+
+    .sidebar li:hover {
+      background: #eaf5ea;
+      color: #1e7e34;
+      transform: translateX(-4px);
+    }
+
+    .sidebar li.active {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+    }
+
+    .sidebar li.active i {
+      color: white;
+    }
+
+    /* ===== محتوا ===== */
+    .content {
+      flex: 3 1 700px;
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 2rem 2.5rem;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+
+    .content:hover {
+      box-shadow: var(--shadow-hover);
+    }
+
+    .content h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+      color: #0b2b3d;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .content h1 i {
+      color: var(--primary);
+    }
+
+    .subhead {
+      color: #3a5670;
+      font-size: 1.05rem;
+      border-right: 4px solid var(--primary);
+      padding-right: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .topic-badge {
+      display: inline-block;
+      background: #eef6ee;
+      padding: 0.2rem 1.2rem;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      color: #1e7e34;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    /* ===== کد ===== */
+    .code-box {
+      background: #1e2a3a;
+      color: #e4eef7;
+      padding: 1.5rem;
+      border-radius: 12px;
+      margin: 1.6rem 0;
+      font-family: var(--font-code);
+      font-size: 0.9rem;
+      overflow-x: auto;
+      direction: ltr;
+      text-align: left;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      position: relative;
+      line-height: 1.8;
+    }
+
+    .code-box .comment {
+      color: #7a9a9a;
+    }
+
+    .code-box .keyword {
+      color: #c792ea;
+      font-weight: 600;
+    }
+
+    .code-box .func {
+      color: #82aaff;
+    }
+
+    .code-box .string {
+      color: #c3e88d;
+    }
+
+    .code-box .var {
+      color: #f78c6c;
+    }
+
+    .code-box .number {
+      color: #f78c6c;
+    }
+
+    .code-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .code-label {
+      color: #8a9baa;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    /* ===== دکمه اجرا ===== */
+    .btn-run {
+      background: var(--primary);
+      border: none;
+      color: white;
+      padding: 0.7rem 2rem;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0.5rem 0 1rem;
+    }
+
+    .btn-run:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+    }
+
+    .btn-run:active {
+      transform: scale(0.97);
+    }
+
+    /* ===== خروجی ===== */
+    .output-box {
+      background: #f0f4fa;
+      border-radius: 12px;
+      padding: 1.2rem 1.8rem;
+      margin: 1rem 0 1.5rem 0;
+      border-right: 6px solid var(--primary);
+      font-family: var(--font-code);
+      font-size: 0.95rem;
+      min-height: 50px;
+      white-space: pre-wrap;
+      word-break: break-word;
+      color: #1e2a3a;
+      transition: var(--transition);
+    }
+
+    .output-box .label {
+      font-weight: 600;
+      color: #2c5f2d;
+      font-size: 0.85rem;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    /* ===== نکته ===== */
+    .note {
+      background: #fff8e7;
+      padding: 0.8rem 1.4rem;
+      border-radius: 12px;
+      border-right: 5px solid #f9a825;
+      margin: 1.5rem 0 0.8rem 0;
+      color: #3e3a2b;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .note i {
+      color: #f9a825;
+      font-size: 1.1rem;
+      margin-top: 2px;
+    }
+
+    /* ===== ناوبری پایین ===== */
+    .nav-links-bottom {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 0.5rem;
+    }
+
+    .nav-links-bottom span {
+      cursor: pointer;
+      color: #2c5f2d;
+      font-weight: 500;
+      transition: var(--transition);
+      padding: 6px 14px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-links-bottom span:hover {
+      background: #eaf5ea;
+      color: #1e7e34;
+    }
+
+    .nav-links-bottom span:active {
+      transform: scale(0.95);
+    }
+
+    hr {
+      border: 1px solid #e4eaf0;
+      margin: 2rem 0 1rem 0;
+    }
+
+    /* ===== فوتر ===== */
+    .footer {
+      background: var(--dark);
+      color: #ccc;
+      padding: 2rem 2rem 1rem;
+      margin-top: 2rem;
+      border-top: 3px solid var(--primary);
+    }
+
+    .footer-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid #333;
+    }
+
+    .footer-content div {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer-content a {
+      color: #aaa;
+      text-decoration: none;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .footer-content a:hover {
+      color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .footer-bottom {
+      max-width: 1400px;
+      margin: 1rem auto 0;
+      text-align: center;
+      font-size: 0.95rem;
+      color: #888;
+    }
+
+    .footer-bottom .creator {
+      color: var(--primary-light);
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .footer-bottom i {
+      color: #ff6b6b;
+    }
+
+    /* ===== پاسخگو ===== */
+    @media (max-width: 1024px) {
+      .container {
+        padding: 0 1rem;
+      }
+
+      .content {
+        padding: 1.8rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        gap: 0.3rem;
+        margin-top: 0.8rem;
+        padding: 0.5rem 0;
+        border-top: 1px solid #333;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-links a {
+        padding: 0.6rem 1rem;
+        width: 100%;
+        border-radius: 8px;
+      }
+
+      .sidebar {
+        position: static;
+        max-height: none;
+        flex: 1 1 100%;
+      }
+
+      .content {
+        padding: 1.2rem;
+      }
+
+      .content h1 {
+        font-size: 1.6rem;
+        flex-wrap: wrap;
+      }
+
+      .code-box {
+        font-size: 0.8rem;
+        padding: 1rem;
+      }
+
+      .btn-run {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .footer-content {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .footer-content div {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header {
+        padding: 0.6rem 1rem;
+      }
+
+      .logo {
+        font-size: 1.4rem;
+      }
+
+      .container {
+        padding: 0 0.6rem;
+        margin: 1rem auto;
+        gap: 1rem;
+      }
+
+      .content {
+        padding: 1rem;
+        border-radius: 12px;
+      }
+
+      .content h1 {
+        font-size: 1.3rem;
+      }
+
+      .subhead {
+        font-size: 0.95rem;
+        padding-right: 0.8rem;
+      }
+
+      .code-box {
+        font-size: 0.75rem;
+        padding: 0.8rem;
+        border-radius: 8px;
+      }
+
+      .output-box {
+        padding: 0.8rem 1rem;
+        font-size: 0.85rem;
+      }
+
+      .nav-links-bottom {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .nav-links-bottom span {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .sidebar li {
+        font-size: 0.9rem;
+        padding: 0.6rem 0.8rem;
+      }
+    }
+
+    /* ===== انیمیشن‌ها ===== */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .content {
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.02);
+      }
+    }
+
+    .btn-run:active {
+      animation: pulse 0.2s ease;
+    }
+
+    /* ===== Toast ===== */
+    .toast-custom {
+      position: fixed;
+      bottom: 30px;
+      left: 30px;
+      background: var(--dark);
+      color: white;
+      padding: 14px 28px;
+      border-radius: 40px;
+      font-weight: 500;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      z-index: 9999;
+      direction: rtl;
+      animation: slideUp 0.4s ease;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      max-width: 90%;
+    }
+
+    .toast-custom i {
+      color: var(--primary);
+      font-size: 1.2rem;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      to {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+    }
+
+    /* ===== تعداد مباحث ===== */
+    .topic-count {
+      display: inline-block;
+      background: var(--primary);
+      color: white;
+      font-size: 0.7rem;
+      padding: 0.1rem 0.6rem;
+      border-radius: 30px;
+      margin-right: auto;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ===== هدر ===== -->
+  <header class="header">
+    <div class="logo">
+      <i class="fab fa-python"></i> Python<span>School</span>
+    </div>
+    <nav class="nav-links" id="navLinks">
+      <a href="#" data-page="home" class="active"><i class="fas fa-home"></i> خانه</a>
+      <a href="#" data-page="learn"><i class="fas fa-book"></i> آموزش</a>
+      <a href="#" data-page="examples"><i class="fas fa-laptop-code"></i> مثال‌ها</a>
+      <a href="#" data-page="exercises"><i class="fas fa-user-graduate"></i> تمرین</a>
+      <a href="#" data-page="about"><i class="fas fa-info-circle"></i> درباره</a>
+    </nav>
+    <div class="menu-toggle" id="menuToggle">
+      <i class="fas fa-bars"></i>
+    </div>
+  </header>
+
+  <!-- ===== محتوای اصلی ===== -->
+  <div class="container">
+    <!-- سایدبار -->
+    <aside class="sidebar" id="sidebar">
+      <h3>
+        <i class="fas fa-list-ul"></i> مباحث پایتون
+        <span class="topic-count" id="topicCount">0</span>
+      </h3>
+      <ul id="topicList">
+        <!-- توسط جاوااسکریپت پر می‌شود -->
+      </ul>
+    </aside>
+
+    <!-- بخش محتوا -->
+    <main class="content" id="mainContent">
+      <div id="topicHeader">
+        <h1><i class="fab fa-python"></i> <span id="topicTitle">معرفی پایتون</span></h1>
+        <div class="subhead" id="topicSub">زبان برنامه‌نویسی ساده، قدرتمند و همه‌کاره</div>
+        <div class="topic-badge" id="topicBadge"><i class="fas fa-graduation-cap"></i> سطح مبتدی</div>
+      </div>
+
+      <div id="topicDesc">
+        <p>پایتون یک زبان برنامه‌نویسی سطح بالا، شیء‌گرا و تفسیری است. سینتکس ساده و خوانا، آن را به انتخاب اول برای
+          شروع برنامه‌نویسی تبدیل کرده است.</p>
+      </div>
+
+      <div class="code-box" id="codeDisplay">
+        <span class="comment"># اولین برنامه پایتون</span><br>
+        <span class="keyword">print</span>(<span class="string">"سلام، دنیای پایتون!"</span>)<br>
+        <span class="var">name</span> = <span class="string">"آموزش"</span><br>
+        <span class="keyword">print</span>(<span class="string">f"خوش آمدی به {name}!"</span>)
+      </div>
+
+      <button class="btn-run" id="runBtn">
+        <i class="fas fa-play"></i> اجرا کن
+      </button>
+
+      <div class="output-box" id="outputBox">
+        <span class="label"><i class="fas fa-terminal"></i> خروجی:</span>
+        <span id="outputText">سلام، دنیای پایتون!<br>خوش آمدی به آموزش!</span>
+      </div>
+
+      <div class="note" id="topicNote">
+        <i class="fas fa-lightbulb"></i>
+        <div><strong>نکته:</strong> برای اجرای کد، دکمه اجرا کن را بزنید.</div>
+      </div>
+
+      <hr>
+
+      <div class="nav-links-bottom">
+        <span id="prevTopic"><i class="fas fa-chevron-right"></i> مبحث قبلی</span>
+        <span id="nextTopic">مبحث بعدی <i class="fas fa-chevron-left"></i></span>
+      </div>
+    </main>
+  </div>
+
+  <!-- ===== فوتر ===== -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div>
+        <i class="fab fa-python" style="color: var(--primary); font-size: 1.5rem;"></i>
+        <span style="font-weight: 600;">PythonSchool</span>
+        <span style="color: #555;">·</span>
+        <span>آموزش رایگان پایتون</span>
+      </div>
+      <div>
+        <a href="https://github.com" target="_blank"><i class="fab fa-github"></i> گیت‌هاب</a>
+        <a href="#"><i class="fab fa-telegram"></i> تلگرام</a>
+        <a href="#"><i class="fab fa-youtube"></i> یوتیوب</a>
+        <a href="#"><i class="fab fa-twitter"></i> توییتر</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <i class="fas fa-code"></i> ساخته شده توسط <span class="creator">@mahdi</span>
+      <i class="fas fa-heart" style="color: #ff6b6b;"></i>
+      برای جامعه برنامه‌نویسان ایران
+    </div>
+  </footer>
+
+  <!-- ===== اسکریپت ===== -->
+  <script>
+    // ============================================================
+    // داده‌های مباحث آموزشی پایتون
+    // ============================================================
+    const topicsData = {
+      intro: {
+        id: 'intro',
+        title: 'معرفی پایتون',
+        sub: 'زبان برنامه‌نویسی ساده، قدرتمند و همه‌کاره',
+        badge: 'مبتدی',
+        desc: 'پایتون یک زبان برنامه‌نویسی سطح بالا، شیء‌گرا و تفسیری است. سینتکس ساده و خوانا، آن را به انتخاب اول برای شروع برنامه‌نویسی تبدیل کرده است. در این بخش، با اصول اولیه و مثال‌های عملی آشنا می‌شوید.',
+        code: '# اولین برنامه پایتون\nprint("سلام، دنیای پایتون!")\nname = "آموزش"\nprint(f"خوش آمدی به {name}!")',
+        output: 'سلام، دنیای پایتون!\nخوش آمدی به آموزش!',
+        note: 'برای اجرای کد، دکمه اجرا کن را بزنید.'
+      },
+      syntax: {
+        id: 'syntax',
+        title: 'نحو (Syntax) پایتون',
+        sub: 'قوانین نوشتن کد پایتون',
+        badge: 'مبتدی',
+        desc: 'نحو پایتون بسیار خوانا است. از indent (فاصله) برای مشخص کردن بلوک‌ها استفاده می‌شود. نیازی به سمیکولون یا آکولاد نیست.',
+        code: '# مثال نحو\nx = 10\nif x > 5:\n    print("x بزرگتر از ۵ است")\nelse:\n    print("x کوچکتر یا برابر ۵ است")',
+        output: 'x بزرگتر از ۵ است',
+        note: 'به indent (فاصله) قبل از print دقت کنید.'
+      },
+      variables: {
+        id: 'variables',
+        title: 'متغیرها در پایتون',
+        sub: 'ذخیره‌سازی داده‌ها',
+        badge: 'مبتدی',
+        desc: 'متغیرها برای نگهداری مقادیر استفاده می‌شوند. در پایتون نیازی به اعلام نوع نیست و نوع به صورت پویا تعیین می‌شود.',
+        code: 'name = "سارا"\nage = 25\nheight = 1.75\nprint(f"نام: {name}, سن: {age}, قد: {height}")',
+        output: 'نام: سارا, سن: 25, قد: 1.75',
+        note: 'متغیرها می‌توانند انواع مختلفی داشته باشند.'
+      },
+      strings: {
+        id: 'strings',
+        title: 'رشته‌ها (Strings)',
+        sub: 'کار با متن',
+        badge: 'متوسط',
+        desc: 'رشته‌ها دنباله‌ای از کاراکترها هستند. می‌توان آن‌ها را با \' یا " " تعریف کرد. متدهای زیادی برای کار با رشته‌ها وجود دارد.',
+        code: 'msg = "پایتون فوق‌العاده است"\nprint(msg.upper())\nprint(msg.replace("فوق‌العاده", "عالی"))',
+        output: 'پایتون فوق‌العاده است\nپایتون عالی است',
+        note: 'متدهای upper() و replace() از متدهای رایج رشته‌ها هستند.'
+      },
+      ifelse: {
+        id: 'ifelse',
+        title: 'شرط if / else',
+        sub: 'تصمیم‌گیری در کد',
+        badge: 'متوسط',
+        desc: 'با استفاده از if، else و elif می‌توان مسیر اجرای برنامه را بر اساس شرایط تغییر داد.',
+        code: 'score = 85\nif score >= 90:\n    print("عالی")\nelif score >= 75:\n    print("خوب")\nelse:\n    print("نیاز به تلاش بیشتر")',
+        output: 'خوب',
+        note: 'از elif برای بررسی چند شرط استفاده می‌شود.'
+      },
+      loops: {
+        id: 'loops',
+        title: 'حلقه‌ها (for / while)',
+        sub: 'تکرار عملیات',
+        badge: 'متوسط',
+        desc: 'حلقه‌ها برای اجرای مکرر یک بلوک کد استفاده می‌شوند. for برای پیمایش و while برای تکرار شرطی.',
+        code: '# حلقه for\nfor i in range(3):\n    print(f"شماره {i}")\n\n# حلقه while\ncount = 0\nwhile count < 2:\n    print("تکرار")\n    count += 1',
+        output: 'شماره 0\nشماره 1\nشماره 2\nتکرار\nتکرار',
+        note: 'range(3) اعداد 0، 1 و 2 را تولید می‌کند.'
+      },
+      functions: {
+        id: 'functions',
+        title: 'توابع (Functions)',
+        sub: 'سازماندهی کد',
+        badge: 'پیشرفته',
+        desc: 'توابع بلوک‌های قابل استفاده مجدد هستند. با def تعریف می‌شوند و می‌توانند ورودی بگیرند و خروجی برگردانند.',
+        code: 'def greet(name):\n    return f"سلام {name}!"\n\nmsg = greet("علی")\nprint(msg)\n\ndef add(a, b):\n    return a + b\nprint(add(7, 3))',
+        output: 'سلام علی!\n10',
+        note: 'توابع به کد شما ساختار و قابلیت استفاده مجدد می‌دهند.'
+      },
+      lists: {
+        id: 'lists',
+        title: 'لیست‌ها (Lists)',
+        sub: 'ذخیره‌سازی مجموعه‌ای از داده‌ها',
+        badge: 'متوسط',
+        desc: 'لیست‌ها یکی از پرکاربردترین ساختارهای داده در پایتون هستند. می‌توانند انواع مختلف داده را ذخیره کنند.',
+        code: 'fruits = ["سیب", "موز", "پرتقال"]\nprint(fruits[0])\nfruits.append("انگور")\nprint(fruits)\n\nfor fruit in fruits:\n    print(fruit)',
+        output: 'سیب\n["سیب", "موز", "پرتقال", "انگور"]\nسیب\nموز\nپرتقال\nانگور',
+        note: 'لیست‌ها با [] تعریف می‌شوند و از ۰ ایندکس می‌شوند.'
+      },
+      dictionaries: {
+        id: 'dictionaries',
+        title: 'دیکشنری‌ها (Dictionaries)',
+        sub: 'ذخیره‌سازی داده‌های کلید-مقدار',
+        badge: 'پیشرفته',
+        desc: 'دیکشنری‌ها داده‌ها را به صورت کلید-مقدار ذخیره می‌کنند. بسیار سریع و کارآمد هستند.',
+        code: 'person = {\n    "name": "احمد",\n    "age": 30,\n    "city": "تهران"\n}\nprint(person["name"])\nperson["job"] = "برنامه‌نویس"\nprint(person)',
+        output: 'احمد\n{"name": "احمد", "age": 30, "city": "تهران", "job": "برنامه‌نویس"}',
+        note: 'دیکشنری‌ها با {} تعریف می‌شوند.'
+      }
+    };
+
+    // ترتیب مباحث
+    const topicOrder = ['intro', 'syntax', 'variables', 'strings', 'ifelse', 'loops', 'functions', 'lists', 'dictionaries'];
+
+    // آیکون‌های هر مبحث
+    const topicIcons = {
+      intro: 'fa-rocket',
+      syntax: 'fa-code',
+      variables: 'fa-database',
+      strings: 'fa-font',
+      ifelse: 'fa-code-branch',
+      loops: 'fa-repeat',
+      functions: 'fa-cogs',
+      lists: 'fa-list',
+      dictionaries: 'fa-book'
+    };
+
+    // ============================================================
+    // متغیرهای اصلی
+    // ============================================================
+    let currentTopic = 'intro';
+    let isMenuOpen = false;
+
+    // ============================================================
+    // عناصر DOM
+    // ============================================================
+    const topicList = document.getElementById('topicList');
+    const topicTitle = document.getElementById('topicTitle');
+    const topicSub = document.getElementById('topicSub');
+    const topicBadge = document.getElementById('topicBadge');
+    const topicDesc = document.getElementById('topicDesc');
+    const codeDisplay = document.getElementById('codeDisplay');
+    const outputText = document.getElementById('outputText');
+    const topicNote = document.getElementById('topicNote');
+    const runBtn = document.getElementById('runBtn');
+    const prevBtn = document.getElementById('prevTopic');
+    const nextBtn = document.getElementById('nextTopic');
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    const topicCount = document.getElementById('topicCount');
+
+    // ============================================================
+    // توابع کمکی
+    // ============================================================
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function highlightPython(code) {
+      let highlighted = escapeHtml(code);
+      // کلمات کلیدی
+      const keywords = ['def', 'if', 'else', 'elif', 'for', 'while', 'return', 'print', 'import', 'from', 'class', 'in', 'range'];
+      keywords.forEach(kw => {
+        const regex = new RegExp(`\\b${kw}\\b`, 'g');
+        highlighted = highlighted.replace(regex, `<span class="keyword">${kw}</span>`);
+      });
+      // رشته‌ها
+      highlighted = highlighted.replace(/"([^"]*)"/g, '<span class="string">"$1"</span>');
+      highlighted = highlighted.replace(/'([^']*)'/g, '<span class="string">\'$1\'</span>');
+      // کامنت‌ها
+      highlighted = highlighted.replace(/#(.*)/g, '<span class="comment">#$1</span>');
+      // اعداد
+      highlighted = highlighted.replace(/\b(\d+)\b/g, '<span class="number">$1</span>');
+      return highlighted;
+    }
+
+    function showToast(msg) {
+      const existing = document.querySelector('.toast-custom');
+      if (existing) existing.remove();
+
+      const toast = document.createElement('div');
+      toast.className = 'toast-custom';
+      toast.innerHTML = `<i class="fas fa-check-circle"></i> ${msg}`;
+      document.body.appendChild(toast);
+
+      setTimeout(() => {
+        toast.style.animation = 'slideDown 0.4s ease';
+        setTimeout(() => toast.remove(), 400);
+      }, 2800);
+    }
+
+    // ============================================================
+    // بارگذاری مبحث
+    // ============================================================
+    function loadTopic(topicId) {
+      const topic = topicsData[topicId];
+      if (!topic) return;
+
+      currentTopic = topicId;
+
+      // به‌روزرسانی عنوان
+      topicTitle.textContent = topic.title;
+      topicSub.textContent = topic.sub;
+      topicBadge.innerHTML = `<i class="fas fa-graduation-cap"></i> سطح ${topic.badge}`;
+      topicDesc.innerHTML = topic.desc.replace(/\n/g, '<br>');
+
+      // کد با هایلایت
+      const highlightedCode = highlightPython(topic.code);
+      codeDisplay.innerHTML = highlightedCode;
+
+      // خروجی
+      outputText.innerHTML = topic.output.replace(/\n/g, '<br>');
+
+      // نکته
+      if (topic.note) {
+        topicNote.innerHTML = `<i class="fas fa-lightbulb"></i> <div><strong>نکته:</strong> ${topic.note}</div>`;
+        topicNote.style.display = 'flex';
+      } else {
+        topicNote.style.display = 'none';
+      }
+
+      // آپدیت سایدبار
+      document.querySelectorAll('.sidebar li').forEach(item => {
+        item.classList.remove('active');
+        if (item.dataset.topic === topicId) {
+          item.classList.add('active');
+        }
+      });
+
+      // ذخیره در localStorage
+      try {
+        localStorage.setItem('lastTopic', topicId);
+      } catch (e) { }
+
+      // اسکرول به بالا
+      document.getElementById('mainContent').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // ============================================================
+    // ساخت سایدبار
+    // ============================================================
+    function buildSidebar() {
+      topicList.innerHTML = '';
+      topicCount.textContent = topicOrder.length;
+
+      topicOrder.forEach(id => {
+        const topic = topicsData[id];
+        if (!topic) return;
+        const li = document.createElement('li');
+        li.dataset.topic = id;
+        const icon = topicIcons[id] || 'fa-circle';
+        li.innerHTML = `<i class="fas ${icon}"></i> ${topic.title}`;
+        if (id === currentTopic) li.classList.add('active');
+        li.addEventListener('click', () => loadTopic(id));
+        topicList.appendChild(li);
+      });
+    }
+
+    // ============================================================
+    // رویدادها
+    // ============================================================
+
+    // دکمه اجرا
+    runBtn.addEventListener('click', function () {
+      const topic = topicsData[currentTopic];
+      if (topic) {
+        outputText.style.transition = '0.15s';
+        outputText.style.opacity = '0.5';
+        setTimeout(() => {
+          outputText.innerHTML = topic.output.replace(/\n/g, '<br>');
+          outputText.style.opacity = '1';
+        }, 100);
+
+        this.innerHTML = '<i class="fas fa-check"></i> اجرا شد!';
+        setTimeout(() => {
+          this.innerHTML = '<i class="fas fa-play"></i> اجرا کن';
+        }, 1500);
+        showToast('✅ کد با موفقیت اجرا شد');
+      }
+    });
+
+    // دکمه‌های قبلی و بعدی
+    prevBtn.addEventListener('click', function () {
+      const idx = topicOrder.indexOf(currentTopic);
+      if (idx > 0) {
+        loadTopic(topicOrder[idx - 1]);
+        showToast('📖 مبحث قبلی');
+      } else {
+        showToast('🔚 شما در اولین مبحث هستید');
+      }
+    });
+
+    nextBtn.addEventListener('click', function () {
+      const idx = topicOrder.indexOf(currentTopic);
+      if (idx < topicOrder.length - 1) {
+        loadTopic(topicOrder[idx + 1]);
+        showToast('📖 مبحث بعدی');
+      } else {
+        showToast('🔝 به آخرین مبحث رسیدید');
+      }
+    });
+
+    // منوی موبایل
+    menuToggle.addEventListener('click', function () {
+      isMenuOpen = !isMenuOpen;
+      navLinks.classList.toggle('open');
+      this.innerHTML = isMenuOpen ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+    });
+
+    // دکمه‌های هدر
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        const page = this.dataset.page;
+
+        // بستن منو موبایل
+        navLinks.classList.remove('open');
+        menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+        isMenuOpen = false;
+
+        const messages = {
+          home: '🏠 به خانه خوش آمدید',
+          learn: '📖 آموزش پایتون',
+          examples: '💡 مثال‌های کاربردی',
+          exercises: '🏋️ تمرین‌های تعاملی',
+          about: 'ℹ️ درباره PythonSchool'
+        };
+
+        const topicMap = {
+          home: 'intro',
+          learn: 'syntax',
+          examples: 'loops',
+          exercises: 'functions',
+          about: 'intro'
+        };
+
+        if (topicMap[page]) {
+          loadTopic(topicMap[page]);
+        }
+
+        showToast(messages[page] || '✅ انجام شد');
+
+        document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    // ============================================================
+    // میانبرهای صفحه کلید
+    // ============================================================
+    document.addEventListener('keydown', function (e) {
+      // Ctrl+Enter برای اجرا
+      if (e.ctrlKey && e.key === 'Enter') {
+        runBtn.click();
+        e.preventDefault();
+      }
+      // فلش چپ و راست برای تغییر مبحث
+      if (e.key === 'ArrowRight' && !e.ctrlKey && !e.altKey) {
+        nextBtn.click();
+        e.preventDefault();
+      }
+      if (e.key === 'ArrowLeft' && !e.ctrlKey && !e.altKey) {
+        prevBtn.click();
+        e.preventDefault();
+      }
+    });
+
+    // ============================================================
+    // بارگذاری اولیه
+    // ============================================================
+    let savedTopic = 'intro';
+    try {
+      const last = localStorage.getItem('lastTopic');
+      if (last && topicsData[last]) savedTopic = last;
+    } catch (e) { }
+
+    buildSidebar();
+    loadTopic(savedTopic);
+
+    console.log('🐍 PythonSchool بارگذاری شد!');
+    console.log(`📚 تعداد مباحث: ${Object.keys(topicsData).length}`);
+    console.log('💡 نکته: از کلیدهای Ctrl+Enter برای اجرا استفاده کنید.');
+    console.log('⌨️ فلش چپ/راست برای تغییر مبحث');
+    console.log('👨‍💻 ساخته شده توسط @mahdi');
+  </script>
+</body>
+
+</html>
